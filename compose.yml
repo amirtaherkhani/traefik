@@ -12,9 +12,9 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - /etc/localtime:/etc/localtime:ro
-      - ${HOME}/src/data/logs:/var/log/traefik/
-      - ${HOME}/src/configs/traefik.yml:/etc/traefik/traefik.yml:ro
-      - ${HOME}/src/certs/acme.json:/etc/traefik/certs/acme.json
+      - ./src/data/logs:/var/log/traefik/
+      - ./src/configs/traefik.yml:/etc/traefik/traefik.yml:ro
+      - ./src/certs/acme.json:/etc/traefik/certs/acme.json
     labels:
       - traefik.enable=true
       - traefik.http.routers.traefik.entrypoints=web

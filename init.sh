@@ -7,6 +7,4 @@ mkdir -p ${PROJECT_ROOT}/src/volumes
 
 # Create the files (replace with your desired filenames)
 touch "${PROJECT_ROOT}/src/certs/acme.json"
-touch "${PROJECT_ROOT}/src/configs/traefik.yml"
-
 echo "Files created successfully in ${PROJECT_ROOT}/src"

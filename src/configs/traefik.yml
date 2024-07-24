@@ -6,7 +6,8 @@ global:
 log:
   level: INFO  #WARN
   format: json
-  #filePath: /var/log/traefik/server.log
+  #filePath: /var/log/traefik/traefik.log
+
 accesslog:
   format: json
   filePath: /var/log/traefik/access.log
