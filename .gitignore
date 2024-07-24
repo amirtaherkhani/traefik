@@ -1,0 +1,14 @@
+.env
+/src/data/logs/*
+/src/volumes/*
+
+# IDE and OS specific files
+.idea
+.vscode
+*.swp
+*.swo
+*.log
+
+# Editor temporary files
+*.pyc
+*.pyo

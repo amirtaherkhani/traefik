@@ -1,0 +1,33 @@
+services:
+  traefik:
+    image: traefik:latest
+    container_name: traefik
+    hostname: traefik-server
+    restart: unless-stopped
+    security_opt:
+      - no-new-privileges:true
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - /etc/localtime:/etc/localtime:ro
+      - ${HOME}/src/data/logs:/var/log/traefik/
+      - ${HOME}/src/configs/traefik.yml:/etc/traefik/traefik.yml:ro
+      - ${HOME}/src/certs/acme.json:/etc/traefik/certs/acme.json
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.traefik.entrypoints=web
+      - traefik.http.routers.traefik.rule=Host(`traefik.${DOMAIN_NAME}`)
+      - traefik.http.routers.traefik-secure.entrypoints=websecure
+      - traefik.http.routers.traefik-secure.rule=Host(`traefik.${DOMAIN_NAME}`)
+      - traefik.http.routers.traefik-secure.tls=true
+      - traefik.http.routers.traefik-secure.tls.certresolver=letsencrypt
+      - traefik.http.routers.traefik-secure.service=api@internal
+    #      - traefik.http.routers.traefik-secure.tls.domains[0].main=${DOMAIN_NAME}
+    #      - traefik.http.routers.traefik-secure.tls.domains[0].sans=dockge.${DOMAIN_NAME}
+    networks:
+      - traefik-network
+networks:
+  traefik-network:
+    external: true
