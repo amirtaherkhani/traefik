@@ -16,7 +16,7 @@ middlewares:
   admin-auth:
     basicAuth:
       users:
-        - "admin:at747372$#@"
+        - ["your passwd"]
 api:
   insecure: false
   dashboard: true
@@ -53,7 +53,7 @@ entryPoints:
 certificatesResolvers:
   letsencrypt:
     acme:
-      email: amirtaherkhani@outlook.com
+      email: [your email]
       storage: /etc/traefik/certs/acme.json
       caServer: "https://acme-v02.api.letsencrypt.org/directory"
       httpChallenge:
