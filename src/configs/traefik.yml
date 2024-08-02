@@ -32,7 +32,6 @@ entryPoints:
   websecure:
     address: ":443"
 
-# docker mailserver
   mail-smtp:
     address: ":25"
   mail-submission:
