@@ -9,6 +9,15 @@ services:
     ports:
       - 80:80
       - 443:443
+      - 25:25
+      - 587:587
+      - 465:465
+      - 143:143
+      - 993:993
+      - 110:110
+      - 995:995
+      - 4190:4190
+
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - /etc/localtime:/etc/localtime:ro
@@ -24,8 +33,6 @@ services:
       - traefik.http.routers.traefik-secure.tls=true
       - traefik.http.routers.traefik-secure.tls.certresolver=letsencrypt
       - traefik.http.routers.traefik-secure.service=api@internal
-    #      - traefik.http.routers.traefik-secure.tls.domains[0].main=${DOMAIN_NAME}
-    #      - traefik.http.routers.traefik-secure.tls.domains[0].sans=dockge.${DOMAIN_NAME}
     networks:
       - traefik-network
 networks:
