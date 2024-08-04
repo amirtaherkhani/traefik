@@ -1,4 +1,3 @@
-
 global:
   checkNewVersion: true
   sendAnonymousUsage: false
@@ -31,17 +30,20 @@ entryPoints:
           scheme: https
   websecure:
     address: ":443"
-
   mail-smtp:
     address: ":25"
+  mail-smtps:
+    address: ":465"
   mail-submission:
     address: ":587"
-  mail-submissions:
-    address: ":465"
   mail-imap:
     address: ":143"
   mail-imaps:
     address: ":993"
+    proxyProtocol:
+      trustedIPs:
+        - "172.16.42.2"  # Example IP of Traefik container
+        - "172.16.42.3"
   mail-pop3:
     address: ":110"
   mail-pop3s:
