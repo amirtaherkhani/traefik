@@ -1,12 +1,12 @@
-# Traefik configuration
+
 global:
   checkNewVersion: true
   sendAnonymousUsage: false
 
 log:
-  level: INFO  # WARN
+  level: INFO  #WARN
   format: json
-  # filePath: /var/log/traefik/traefik.log
+  #filePath: /var/log/traefik/traefik.log
 
 accesslog:
   format: json
@@ -16,8 +16,7 @@ middlewares:
   admin-auth:
     basicAuth:
       users:
-        - "admin:3qCx2Fj2xVG1"
-
+        - "admin:yourpasswd"
 api:
   insecure: false
   dashboard: true
@@ -39,7 +38,7 @@ entryPoints:
 certificatesResolvers:
   letsencrypt:
     acme:
-      email: amirtaherkhani@outlook.com
+      email: yourmail
       storage: /etc/traefik/certs/acme.json
       caServer: "https://acme-v02.api.letsencrypt.org/directory"
       httpChallenge:
