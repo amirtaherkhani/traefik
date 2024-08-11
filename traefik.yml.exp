@@ -1,0 +1,66 @@
+global:
+  checkNewVersion: true
+  sendAnonymousUsage: false
+
+log:
+  level: INFO  #WARN
+  format: json
+  #filePath: /var/log/traefik/traefik.log
+
+accesslog:
+  format: json
+  filePath: /var/log/traefik/access.log
+
+middlewares:
+  admin-auth:
+    basicAuth:
+      users:
+        - "your passwd"
+api:
+  insecure: false
+  dashboard: true
+
+entryPoints:
+  web:
+    address: ":80"
+    http:
+      redirections:
+        entryPoint:
+          to: websecure
+          scheme: https
+  websecure:
+    address: ":443"
+  mail-smtp:
+    address: ":25"
+  mail-smtps:
+    address: ":465"
+  mail-submission:
+    address: ":587"
+  mail-imap:
+    address: ":143"
+  mail-imaps:
+    address: ":993"
+    proxyProtocol:
+      trustedIPs:
+        - "172.16.42.2"  # Example IP of Traefik container
+        - "172.16.42.3"
+  mail-pop3:
+    address: ":110"
+  mail-pop3s:
+    address: ":995"
+  mail-managesieve:
+    address: ":4190"
+
+certificatesResolvers:
+  letsencrypt:
+    acme:
+      email: "your mail"
+      storage: /etc/traefik/certs/acme.json
+      caServer: "https://acme-v02.api.letsencrypt.org/directory"
+      httpChallenge:
+        entryPoint: web
+
+providers:
+  docker:
+    endpoint: "unix:///var/run/docker.sock"
+    exposedByDefault: false
