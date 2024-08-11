@@ -1,3 +1,4 @@
+
 global:
   checkNewVersion: true
   sendAnonymousUsage: false
@@ -15,7 +16,7 @@ middlewares:
   admin-auth:
     basicAuth:
       users:
-        - "your passwd"
+        - "admin:yourpasswd"
 api:
   insecure: false
   dashboard: true
@@ -30,31 +31,14 @@ entryPoints:
           scheme: https
   websecure:
     address: ":443"
-  mail-smtp:
-    address: ":25"
-  mail-smtps:
-    address: ":465"
-  mail-submission:
-    address: ":587"
-  mail-imap:
-    address: ":143"
-  mail-imaps:
-    address: ":993"
-    proxyProtocol:
-      trustedIPs:
-        - "172.16.42.2"  # Example IP of Traefik container
-        - "172.16.42.3"
-  mail-pop3:
-    address: ":110"
-  mail-pop3s:
-    address: ":995"
-  mail-managesieve:
-    address: ":4190"
+    
+  postgres:
+    address: ":5432"
 
 certificatesResolvers:
   letsencrypt:
     acme:
-      email: "your mail"
+      email: yourmail
       storage: /etc/traefik/certs/acme.json
       caServer: "https://acme-v02.api.letsencrypt.org/directory"
       httpChallenge:
