@@ -9,7 +9,8 @@ services:
     ports:
       - 80:80
       - 443:443
-      - 5432:5432
+      - 5432:5432 # public pssql dbs
+#      - 8448:8448
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - /etc/localtime:/etc/localtime:ro
@@ -25,8 +26,10 @@ services:
       - traefik.http.routers.traefik-secure.tls=true
       - traefik.http.routers.traefik-secure.tls.certresolver=letsencrypt
       - traefik.http.routers.traefik-secure.service=api@internal
-    #      - traefik.http.routers.traefik-secure.tls.domains[0].main=${DOMAIN_NAME}
-    #      - traefik.http.routers.traefik-secure.tls.domains[0].sans=dockge.${DOMAIN_NAME}
+      - traefik.docker.network=traefik-network
+      - traefik.http.middlewares.cors-headers.headers.accessControlAllowOriginList=*
+      - traefik.http.middlewares.cors-headers.headers.accessControlAllowHeaders=Origin, X-Requested-With, Content-Type, Accept, Authorization
+      - traefik.http.middlewares.cors-headers.headers.accessControlAllowMethods=GET, POST, PUT, DELETE, OPTIONS
     networks:
       - default
 networks:

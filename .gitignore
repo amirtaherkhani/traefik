@@ -1,8 +1,5 @@
 .env
-/src/data/logs/*
-/src/volumes/*
-src/certs/acme.json
-/src/configs/traefik.yml
+src
 # IDE and OS specific files
 .idea
 .vscode

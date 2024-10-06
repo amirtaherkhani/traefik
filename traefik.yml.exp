@@ -4,7 +4,7 @@ global:
   sendAnonymousUsage: false
 
 log:
-  level: INFO  #WARN
+  level: WARN 
   format: json
   #filePath: /var/log/traefik/traefik.log
 
@@ -19,7 +19,7 @@ middlewares:
         - "admin:yourpasswd"
 api:
   insecure: false
-  dashboard: true
+  dashboard: false
 
 entryPoints:
   web:
@@ -32,8 +32,6 @@ entryPoints:
   websecure:
     address: ":443"
     
-  postgres:
-    address: ":5432"
 
 certificatesResolvers:
   letsencrypt:
