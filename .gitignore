@@ -1,5 +1,6 @@
 .env
 src
+/src
 # IDE and OS specific files
 .idea
 .vscode
