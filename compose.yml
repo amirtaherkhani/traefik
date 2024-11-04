@@ -9,8 +9,6 @@ services:
     ports:
       - 80:80
       - 443:443
-      - 5432:5432 # public pssql dbs
-#      - 8448:8448
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - /etc/localtime:/etc/localtime:ro
@@ -32,7 +30,6 @@ services:
       - traefik.http.middlewares.cors-headers.headers.accessControlAllowMethods=GET, POST, PUT, DELETE, OPTIONS
     networks:
       - traefik-network
-    #network_mode: host
 networks:
  traefik-network:
     name: traefik-network
