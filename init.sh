@@ -13,25 +13,34 @@ mkdir -p ${PROJECT_ROOT}/src/configs
 chmod 700 ${PROJECT_ROOT}/src/certs
 chmod 700 ${PROJECT_ROOT}/src/data/logs
 
-# Path for acme.json
+# Path for acme.json and traefik.yml
 ACME_JSON="${PROJECT_ROOT}/src/certs/acme.json"
 CONFIG_YAML="${PROJECT_ROOT}/src/configs/traefik.yml"
-# Check if acme.json exists, remove it if so
+DYNAMIC_YAML="${PROJECT_ROOT}/src/configs/dynamic.yml"
+
+# Check if acme.json, traefik.yml, or dynamic.yml exists, remove them if so
 if [ -f "$ACME_JSON" ]; then
     rm "$ACME_JSON"
 fi
 if [ -f "$CONFIG_YAML" ]; then
     rm "$CONFIG_YAML"
 fi
-# Create a new acme.json file
+if [ -f "$DYNAMIC_YAML" ]; then
+    rm "$DYNAMIC_YAML"
+fi
+
+# Create new acme.json, traefik.yml, and dynamic.yml files
 touch "$ACME_JSON"
 touch "$CONFIG_YAML"
+touch "$DYNAMIC_YAML"
+
 # Set permissions for the acme.json file to allow the owner to read/write
 chmod 600 "$ACME_JSON"
 chmod 600 "$CONFIG_YAML"
+chmod 600 "$DYNAMIC_YAML"
+
 # Create the traefik.yml configuration file in the configs directory
-TRAFFIC_YML="${PROJECT_ROOT}/src/configs/traefik.yml"
-cat <<EOL > "$TRAFFIC_YML"
+cat <<EOL > "$CONFIG_YAML"
 # Traefik configuration
 global:
   checkNewVersion: true
@@ -66,7 +75,7 @@ entryPoints:
           scheme: https
   websecure:
     address: ":443"
-    
+
   postgres:
     address: ":5432"
 
@@ -83,9 +92,13 @@ providers:
   docker:
     endpoint: "unix:///var/run/docker.sock"
     exposedByDefault: false
+  file:
+    filename: ${PROJECT_ROOT}/src/configs/dynamic.yml
 EOL
 
-# Set permissions for the traefik.yml file to allow the owner to read/write
-chmod 600 "$TRAFFIC_YML"
+
+# Set permissions for the traefik.yml and dynamic.yml files
+chmod 600 "$CONFIG_YAML"
+chmod 600 "$DYNAMIC_YAML"
 
 echo "Files created successfully in ${PROJECT_ROOT}/src"
